@@ -1,11 +1,29 @@
 
 
 import React from "react"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Body from "./component/Body"
+import Login from "./component/Login"
+import Profile from "./component/Profile"
 
 function App() {
-  
+
     return (
-      <h1 className="text-red-500 bg-green-500">hello world</h1> 
+
+      <div>
+
+      <BrowserRouter>
+<Routes>
+  <Route path="/" element={<Body/>}>
+  <Route path="/login" element={<Login/>} />
+  <Route path="/profile" element={<Profile/>} />
+
+  </Route>
+</Routes>
+      </BrowserRouter>
+
+    
+      </div>
     )
   
 }
