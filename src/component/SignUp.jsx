@@ -1,33 +1,14 @@
-import axios from 'axios';
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { AddUser } from '../utils/UserSlice';
-import { Link, useNavigate } from 'react-router-dom';
-import {Base_URL} from '../utils/Constant'
-import NotFound from './NotFound';
-
-//signUp
+import axios from "axios";
+import React, { useState } from "react";
+import { Base_URL } from "../utils/Constant";
+import { useDispatch } from "react-redux";
 import { addSignUp } from "../utils/SingUpSlice";
- 
+import { useNavigate } from "react-router-dom";
 
+const SignUp = () => {
 
-
-const Login = () => {
-
-    const [isSignForm,setSignForm]=useState(true)
-    const Navigate=useNavigate();
-
-    const [email,setemail]=useState("");
-    const [password,setpassword]=useState("");
-      const dispatch=useDispatch();
-      const [ErrorMessage,setErrorMessage]=useState("")
-
-
-
-      // signUp
-
- 
- 
+const dispatch=useDispatch()
+const navigate=useNavigate();
 const   [firstName,setfirstname]=useState("")
 const   [lastName,setlastName]=useState("")
 const   [Age,setAge]=useState("")
@@ -37,9 +18,9 @@ const   [Gender,setGender]=useState("")
 const   [phone,setPhone]=useState("")
 const   [photoURL,setPhotoURL]=useState("")
 const   [skills,setSkills]=useState("")
-// const   [email,setemail]=useState("")
-// const   [password,setpassword]=useState("")
-// const [ErrorMessage,setErrorMessage]=useState(null)
+const   [email,setemail]=useState("")
+const   [password,setpassword]=useState("")
+const [ErrorMessage,setErrorMessage]=useState(null)
 
 
     const AddSignUpRegister=async(e)=>{
@@ -63,14 +44,11 @@ const   [skills,setSkills]=useState("")
             },{withCredentials:true})
 
 
-            console.log(res.data.SavedUser)
+            console.log(res.data.user)
 
-     dispatch(addSignUp(res.data.SavedUser))
-     dispatch(AddUser(res.data.SavedUser))
+     dispatch(addSignUp(res.data.user))
  setErrorMessage("")
-    setSignForm(true)
-      Navigate("/profile")
-     
+   return  navigate("/login")
 
         }catch (Err) {
   if (Err.response) {
@@ -84,72 +62,8 @@ const   [skills,setSkills]=useState("")
 
 
 
-
-
-      //SignUp
-
-
-    const handleLogin = async()=>{
-
-        try{
-      const  data = await  axios.post(Base_URL + "/login",
-                {email,password}
-            ,{withCredentials:true});
-           
-            dispatch(AddUser(data?.data))
-            Navigate("/")
-            console.log(data)
-
-             
-
-        }catch(err){
-            console.log(err.message)
-          
-          setErrorMessage(err.response?.data?.message || "Something went wrong")
-        }
-
-    }
-
-
-    const handleSignForm=()=>{
-        setSignForm(!isSignForm)
-    }
-
   return (
-    <div className='flex justify-center h-full w-full my-4'>
-    
-    
-    { isSignForm && <div className='my-2 w-4/12'>
-        <form onSubmit={(e)=>e.preventDefault()} className='bg-white w-full flex gap-2  flex-col text-black shadow-2xl rounded-lg ring-1 p-4'>
-
-
-            <div className='flex flex-col'>
-                <label className='py-2'>Email </label>
-            <input className='px-4 py-2 rounded-sm focus:outline-none ring-1 ring-gray-300' placeholder='Example@gmail.com'
-              value={email}
-              type="email"
-              onChange={(e)=>setemail(e.target.value)}
-            />
-            </div>
-
-
-            <div className='flex flex-col'>
-                <label className='py-2'>password </label>
-            <input className='px-4 py-2 rounded-sm focus:outline-none ring-1 ring-gray-300' placeholder='********'
-             value={password}
-              type="password"
-             onChange={(e)=>setpassword(e.target.value)}
-            />
-            </div>
-            <div className='text-red-600 font-bold text-sm'>{ErrorMessage}</div>
-
-            <button onClick={handleLogin} className='bg-green-600 text-white rounded-lg p-3  cursor-pointer'>login</button>
-              <Link   className='bg-red-400 hover:bg-red-600 text-sm font-bold text-white  p-2 rounded-lg w-3/12'> <span onClick={handleSignForm}> new user </span> </Link>
-        </form>
-     </div>}
-
-     {
-        !isSignForm && <div className="min-h-screen bg-base-300 flex items-center justify-center p-4 ">
+    <div className="min-h-screen bg-base-300 flex items-center justify-center p-4 ">
    
       <div className="bg-white w-full max-w-3xl rounded-2xl shadow-2xl p-8 overflow-scroll relative">
        {
@@ -339,17 +253,11 @@ const   [skills,setSkills]=useState("")
             >
               Sign Up
             </button>
-
-            <Link   className='bg-red-400 hover:bg-red-600  my-2 text-sm font-bold text-white  p-2 rounded-lg w-3/12'> <span  onClick={handleSignForm}> AL ready user exit </span> </Link>
-
           </div>
         </form>
       </div>
     </div>
-     }
-   
-    </div>
-  )
-}
+  );
+};
 
-export default Login
+export default SignUp;

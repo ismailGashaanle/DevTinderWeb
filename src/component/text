@@ -63,14 +63,11 @@ const   [skills,setSkills]=useState("")
             },{withCredentials:true})
 
 
-            console.log(res.data.SavedUser)
+            console.log(res.data.user)
 
-     dispatch(addSignUp(res.data.SavedUser))
-     dispatch(AddUser(res.data.SavedUser))
+     dispatch(addSignUp(res.data.user))
  setErrorMessage("")
-    setSignForm(true)
-      Navigate("/profile")
-     
+   return  Navigate("/login")
 
         }catch (Err) {
   if (Err.response) {
@@ -144,7 +141,7 @@ const   [skills,setSkills]=useState("")
             <div className='text-red-600 font-bold text-sm'>{ErrorMessage}</div>
 
             <button onClick={handleLogin} className='bg-green-600 text-white rounded-lg p-3  cursor-pointer'>login</button>
-              <Link   className='bg-red-400 hover:bg-red-600 text-sm font-bold text-white  p-2 rounded-lg w-3/12'> <span onClick={handleSignForm}> new user </span> </Link>
+              <Link   className='bg-red-400 hover:bg-red-600 text-sm font-bold text-white  p-2 rounded-lg w-3/12'> <span onClick={handleSignForm()}> new user </span> </Link>
         </form>
      </div>}
 
@@ -339,9 +336,6 @@ const   [skills,setSkills]=useState("")
             >
               Sign Up
             </button>
-
-            <Link   className='bg-red-400 hover:bg-red-600  my-2 text-sm font-bold text-white  p-2 rounded-lg w-3/12'> <span  onClick={handleSignForm}> AL ready user exit </span> </Link>
-
           </div>
         </form>
       </div>
